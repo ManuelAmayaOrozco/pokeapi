@@ -1,8 +1,11 @@
 <?php
     
         require_once "funciones.php";
+        require_once "jsonhandler.php";
 
-        $usuarios = ["manuamayaorozco@gmail.com" => "1234", "pepito@hotmail.com" => "1111"];
+        $usuarios = loadEventsFromJson();
+
+        echo $usuarios[0];
 
         $validate = login($_POST["email"], $_POST["password"], $usuarios);
 

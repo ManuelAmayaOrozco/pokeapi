@@ -2,25 +2,21 @@
 
     function login($email, $password, $list_emails) {
 
-        foreach( $list_emails as $user=>$pass ) {
+        if( $list_emails[1] == $email ) {
 
-            if( $user == $email ) {
+            if ($list_emails[2] == $password) {
 
-                if ($pass == $password) {
-
-                    return true;
-
-                } else {
-
-                    return false;
-
-                }
+                return true;
 
             } else {
 
                 return false;
 
             }
+
+        } else {
+
+            return false;
 
         }
 
