@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="styles_registro.css">
+    <title>PokeAPI_Registro</title>
 </head>
 <body>
     
-    <h1>REGISTRO</h1>
+    <h1>REGISTRO POKEAPI</h1>
 
     <form action="registro.php" id="formRegister" method="POST">
 
@@ -49,6 +50,8 @@
             echo "<p style='color: green'>Credenciales correctas.</p>";
 
             require_once "jsonhandler.php";
+
+            saveEventsToJson([$nombre, $email, $password]);
 
         } else {
 
