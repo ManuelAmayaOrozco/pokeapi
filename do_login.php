@@ -5,19 +5,24 @@
 
         $usuarios = loadEventsFromJson();
 
-        echo $usuarios[0];
+        if (isset($_POST["email"]) && $_POST["password"]) {
 
-        $validate = login($_POST["email"], $_POST["password"], $usuarios);
+            $validate = login($_POST["email"], $_POST["password"], $usuarios);
 
-    
-        if ($validate) {
+            if ($validate) {
 
-            require_once "index.php";
+                require_once "api.php";
 
-        } else {
+            } else {
 
-            echo "<p>Credenciales incorrectas.</p>";
+                $login_incorrecto = true;
 
+                require_once "index.php";
+
+                echo "<p>Credenciales incorrectas.</p>";
+
+            }
+        
         }
 
     ?>

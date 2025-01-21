@@ -1,5 +1,12 @@
 [
-    "Manuel",
-    "manuamayaorozco@gmail.com",
-    "1234"
+    {
+        "nombre": "Manuel",
+        "email": "manuamayaorozco@gmail.com",
+        "password": "1234"
+    },
+    {
+        "nombre": "Pepe",
+        "email": "pepe@gmail.com",
+        "password": "1234"
+    }
 ]

@@ -16,7 +16,7 @@
         <input type="text" name="nombre" id="nombre"/>
 
         <label for="email">Email</label>
-        <input type="text" name="email" id="email"/>
+        <input type="text" name="email" id="email" style="border-color: <?= $todoBien ? "" : "red" ?>"/>
 
         <label for="password">Password</label>
         <input type="text" name="password" id="password"/>
@@ -30,37 +30,56 @@
 
     <?php
 
-    if (isset($_POST["nombre"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["rpassword"])) {
+        if (isset($_POST["nombre"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["rpassword"])) {
 
-        $nombre = $_POST["nombre"] ?? "";
-        $email = $_POST["email"] ?? "";
-        $password = $_POST["password"] ?? "";
-        $rpassword = $_POST["rpassword"] ?? "";
+            $nombre = $_POST["nombre"] ?? "";
+            $email = $_POST["email"] ?? "";
+            $password = $_POST["password"] ?? "";
+            $rpassword = $_POST["rpassword"] ?? "";
 
-        $todoBien = true;
+            $todoBien = true;
 
-        if ($password != $rpassword) {
+            if ($password != $rpassword) {
 
-            $todoBien = false;
+                $todoBien = false;
 
-        }
-
-        if ($todoBien) {
-
-            echo "<p style='color: green'>Credenciales correctas.</p>";
+            }
 
             require_once "jsonhandler.php";
 
-            saveEventsToJson([$nombre, $email, $password]);
+            $datos = loadEventsFromJson();
 
-        } else {
+            foreach ($datos as $user) {
+                
+                if( $user["email"] == $email ) {
 
-            echo "<p style='color: red'>Credenciales incorrectas.</p>";
+                    $todoBien = false;
+    
+                }
+
+            }
+
+            if ($todoBien) {
+
+                echo "<p style='color: green'>Credenciales correctas.</p>";
+
+                require_once "jsonhandler.php";
+
+                $datos = loadEventsFromJson();
+
+                $nuevo_user = ["nombre"=>$nombre, "email"=>$email, "password"=>$password];
+
+                $datos[] = $nuevo_user;
+
+                saveEventsToJson($datos);
+
+            } else {
+
+                echo "<p style='color: red'>Ese email ya está en uso.</p>";
+
+            }
 
         }
-
-    }
-
 
     ?>
 

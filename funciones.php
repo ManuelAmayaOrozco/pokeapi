@@ -1,24 +1,22 @@
 <?php
 
-    function login($email, $password, $list_emails) {
+    function login($email, $password, $list_users) {
 
-        if( $list_emails[1] == $email ) {
+        foreach( $list_users as $user ) {
+        
+            if( $user["email"] == $email ) {
 
-            if ($list_emails[2] == $password) {
+                if( $user["password"] == $password ) {
+                
+                    return true;
 
-                return true;
-
-            } else {
-
-                return false;
+                }
 
             }
 
-        } else {
-
-            return false;
-
         }
+
+        return false;
 
     }
 
