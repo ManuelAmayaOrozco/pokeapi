@@ -8,19 +8,32 @@
 </head>
 <body>
 
-    <h1 style="color: red">LOGIN POKEAPI</h1>
+        <!-- El header funciona pero no detecta su css correspondiente por algún motivo -->
 
-    <form action="do_login.php" method="POST">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="index.php">Login</a></li>
+                    <li><a href="registro.php">Registro</a></li>
+                </ul>
+            </nav>
+        </header>
 
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email" style="border-color: <?= $login_incorrecto ? "red" : "" ?>"/>
+        <h1 style="color: red">LOGIN POKEAPI</h1>
 
-        <label for="password">Contraseña</label>
-        <input type="password" name="password" id="password" style="border-color: <?= $login_incorrecto ? "red" : "" ?>"/>
+        <!-- Al rellenar el formulario, carga do_login -->
 
-        <input type="submit" value="enviar"/>
+        <form action="do_login.php" method="POST">
 
-    </form>
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" style="border-color: <?= $login_incorrecto ? "red" : "" ?>"/>
+
+            <label for="password">Contraseña</label>
+            <input type="password" name="password" id="password" style="border-color: <?= $login_incorrecto ? "red" : "" ?>"/>
+
+            <input type="submit" value="enviar"/>
+
+        </form>
     
 </body>
 </html>

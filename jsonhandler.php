@@ -1,4 +1,7 @@
 <?php
+
+    // Funciones que se encargan de cargar y guardar los elementos del archivo usuarios.json, se puede usar para cualquier archivo json
+
     function loadEventsFromJson()
     {
         $file = 'usuarios.json';

@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles_index.css">
+    <link rel="stylesheet" href="styles_api.css">
     <title>PokeAPI</title>
 </head>
 <body>
+
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="index.php">Login</a></li>
+                    <li><a href="registro.php">Registro</a></li>
+                </ul>
+            </nav>
+        </header>
     
         <form action="api.php" method="POST">
 
@@ -18,6 +27,8 @@
         </form>
 
         <?php
+
+            // Cuando se busque la información de un Pokemon se activará esta parte PHP
 
             if (isset($_POST["pokemon"])) {
 
@@ -31,6 +42,8 @@
                 // Decodifica la respuesta y la almacena en un array asociativo
                 $datos_pokemon = json_decode($result, true);
                 curl_close($ch);
+
+                // Lista de los colores de los diferentes tipos
 
                 $colores = ["normal" => "#d2cade",
                             "grass" => "#0fab2b",
@@ -52,30 +65,41 @@
                             "steel" => "#aeaeae" ];
 
                 echo "<div class=caja_poke>";
-                echo "<div class=caja_imagen style=background-color:".$colores[$datos_pokemon["types"]["0"]["type"]["name"]].">";
-                echo "<img src=".$datos_pokemon["sprites"]["front_default"].">";
-                echo "</div>";
-                echo "<div class=datos_poke>";
-                echo "<p>ID: ".$datos_pokemon["id"]."</p>";
-                echo ucfirst($datos_pokemon["name"]);
-                echo "<br>";
-                if (sizeof($datos_pokemon["types"]) == 2) {
 
-                    echo "<p>Tipo: <span style=color:".$colores[$datos_pokemon["types"]["0"]["type"]["name"]].">".ucfirst($datos_pokemon["types"]["0"]["type"]["name"])."</span><span> - </span><span style=color:".$colores[$datos_pokemon["types"]["1"]["type"]["name"]].">".ucfirst($datos_pokemon["types"]["1"]["type"]["name"])."</span></p>";
+                // Salta mensaje de error si el nombre del Pokemon no es válido
+
+                if (isset($_POST["pokemon"]) && $datos_pokemon === null) {
+
+                    echo "<p style=color:red>Nombre del Pokemon no válido</p>";
 
                 } else {
 
-                    echo "<p>Tipo: <span style=color:".$colores[$datos_pokemon["types"]["0"]["type"]["name"]].">".ucfirst($datos_pokemon["types"]["0"]["type"]["name"])."</span></p>";
+                    echo "<div class=caja_imagen style=background-color:".$colores[$datos_pokemon["types"]["0"]["type"]["name"]].">"; // Utilizando el tipo principal del Pokemon sacamos el color del fondo
+                    echo "<img src=".$datos_pokemon["sprites"]["front_default"].">"; // Imagen del Pokemon
+                    echo "</div>";
+                    echo "<div class=datos_poke>";
+                    echo "<p>ID: ".$datos_pokemon["id"]."</p>"; // Número del Pokemon
+                    echo ucfirst($datos_pokemon["name"]); // Nombre del Pokemon
+                    echo "<br>";
+                    if (sizeof($datos_pokemon["types"]) == 2) { // Dependiendo de si tiene uno o dos tipos, saldrán uno o dos, los tipos cambian de color dependiendo del tipo que sea de la misma manera que el color del fondo de la imagen superior
+
+                        echo "<p>Tipo: <span style=color:".$colores[$datos_pokemon["types"]["0"]["type"]["name"]].">".ucfirst($datos_pokemon["types"]["0"]["type"]["name"])."</span><span> - </span><span style=color:".$colores[$datos_pokemon["types"]["1"]["type"]["name"]].">".ucfirst($datos_pokemon["types"]["1"]["type"]["name"])."</span></p>";
+
+                    } else {
+
+                        echo "<p>Tipo: <span style=color:".$colores[$datos_pokemon["types"]["0"]["type"]["name"]].">".ucfirst($datos_pokemon["types"]["0"]["type"]["name"])."</span></p>";
+
+                    } //Aquí obtenemos los stats del Pokemon
+                    echo "<p>HP: ".$datos_pokemon["stats"]["0"]["base_stat"]."</p>";
+                    echo "<p>ATK: ".$datos_pokemon["stats"]["1"]["base_stat"]."</p>";
+                    echo "<p>DEF: ".$datos_pokemon["stats"]["2"]["base_stat"]."</p>";
+                    echo "<p>SP.ATK: ".$datos_pokemon["stats"]["3"]["base_stat"]."</p>";
+                    echo "<p>SP.DEF: ".$datos_pokemon["stats"]["4"]["base_stat"]."</p>";
+                    echo "<p>VEL: ".$datos_pokemon["stats"]["5"]["base_stat"]."</p>";
+                    echo "</div>";
+                    echo "</div>";
 
                 }
-                echo "<p>HP: ".$datos_pokemon["stats"]["0"]["base_stat"]."</p>";
-                echo "<p>ATK: ".$datos_pokemon["stats"]["1"]["base_stat"]."</p>";
-                echo "<p>DEF: ".$datos_pokemon["stats"]["2"]["base_stat"]."</p>";
-                echo "<p>SP.ATK: ".$datos_pokemon["stats"]["3"]["base_stat"]."</p>";
-                echo "<p>SP.DEF: ".$datos_pokemon["stats"]["4"]["base_stat"]."</p>";
-                echo "<p>VEL: ".$datos_pokemon["stats"]["5"]["base_stat"]."</p>";
-                echo "</div>";
-                echo "</div>";
 
             }
 

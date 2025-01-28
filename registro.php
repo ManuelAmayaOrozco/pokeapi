@@ -7,6 +7,17 @@
     <title>PokeAPI_Registro</title>
 </head>
 <body>
+
+    <!-- El header funciona pero no detecta su css correspondiente por algún motivo -->
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.php">Login</a></li>
+                <li><a href="registro.php">Registro</a></li>
+            </ul>
+        </nav>
+    </header>
     
     <h1>REGISTRO POKEAPI</h1>
 
@@ -29,6 +40,8 @@
     </form>
 
     <?php
+
+        // Registra el nuevo usuario únicamente si no coincide su correo y su contraseña está bien escrita las dos veces
 
         if (isset($_POST["nombre"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["rpassword"])) {
 
